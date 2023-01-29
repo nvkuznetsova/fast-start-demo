@@ -1,0 +1,49 @@
+<section>
+  <h4>My first Reactive form</h4>
+  <span class="p-float-label">
+    <input id="float-input" type="text" pInputText [formControl]="favoriteColor">
+    <label for="float-input">Favorite Color</label>
+  </span>
+  <p>Your color is: {{ favoriteColor.value }}</p>
+</section>
+
+<section>
+  <h4>Reactive form with few controls</h4>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="flex flex-column row-gap-3 w-6">
+    <input type="text" pInputText placeholder="Username" formControlName="username">
+    <div class="flex gap-3">
+      <ng-container *ngFor="let role of userRoles">
+        <div class="field-radiobutton">
+          <p-radioButton name="role"
+            [inputId]="role.name" [value]="role.key"
+            formControlName="role"></p-radioButton>
+          <label for="city1">{{ role.name }}</label>
+        </div>
+      </ng-container>
+    </div>
+    <div class="field-checkbox">
+      <p-checkbox [binary]="true"
+        inputId="binary"
+        formControlName="shouldShowCity"
+      ></p-checkbox>
+      <label for="binary">Should select city</label>
+    </div>
+    <p-dropdown *ngIf="shouldShowCity.value"
+      [options]="cities"
+      optionLabel="name"
+      optionValue="code"
+      placeholder="Select a City"
+      formControlName="city"></p-dropdown>
+    <button pButton type="submit" label="Submit" [disabled]="myForm.invalid"></button>
+  </form>
+</section>
+
+<section>
+  <h4>Addresses</h4>
+  <form [formGroup]="address" class="flex flex-column row-gap-3 w-6">
+    <ng-container *ngFor="let group of addresses.controls">
+      <app-address [group]="group | asFormGroup"></app-address>
+    </ng-container>
+    <button pButton type="button" label="Add address" (click)="addAddress()"></button>
+  </form>
+</section>

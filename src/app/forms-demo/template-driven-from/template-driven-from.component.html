@@ -1,0 +1,29 @@
+<section>
+  <h4>My first Template-driven form</h4>
+  <span class="p-float-label">
+    <input id="float-input" type="text" pInputText [(ngModel)]="favoriteColor">
+    <label for="float-input">Favorite Color</label>
+  </span>
+  <p>Your color is: {{ favoriteColor }}</p>
+</section>
+
+<section>
+  <h4>Template-driven form with few controls</h4>
+  <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)" class="flex flex-column gap-3 w-6">
+    <input type="text" pInputText ngModel name="name" placeholder="Username" required>
+    <div class="flex gap-3">
+      <ng-container *ngFor="let role of userRoles">
+        <div class="field-radiobutton">
+          <p-radioButton name="role" ngModel [inputId]="role.name" [value]="role.key"></p-radioButton>
+          <label for="city1">{{ role.name }}</label>
+        </div>
+      </ng-container>
+    </div>
+    <div class="field-checkbox">
+      <p-checkbox [(ngModel)]="shouldShowCity" name="shouldShowCity" [binary]="true" inputId="binary"></p-checkbox>
+      <label for="binary">Should select city</label>
+    </div>
+    <p-dropdown *ngIf="shouldShowCity" [options]="cities" ngModel name="city" optionLabel="name" optionValue="code"></p-dropdown>
+    <button pButton type="submit" label="Submit" [disabled]="myForm.invalid"></button>
+  </form>
+</section>

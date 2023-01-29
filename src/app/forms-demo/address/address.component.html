@@ -1,0 +1,7 @@
+<div [formGroup]="group" class="flex flex-column row-gap-3 w-6">
+  <span *ngFor="let control of (group | asFormGroup).controls | keyvalue" class="p-float-label address-item">
+    <input id="float-input" type="text" pInputText [formControl]="control.value | asFormControl">
+    <label for="float-input">{{ control.key | titlecase }}</label>
+  </span>
+  <p-divider></p-divider>
+</div>
